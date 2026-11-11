@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VEER CONSULTANCY | Civil Engineering & Construction Management</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <!-- Three.js for 3D Background -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            blue: '#1A5F7A',
+                            darkBlue: '#002B49',
+                            accent: '#F95738',
+                            orange: '#EE6C4D',
+                            light: '#F8FAFC',
+                            slate: '#334155'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        heading: ['"Space Grotesk"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0F172A;
+            color: #F8FAFC;
+            overflow-x: hidden;
+        }
+
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .glass-card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card-hover:hover {
+            transform: translateY(-6px);
+            border-color: rgba(238, 108, 77, 0.4);
+            box-shadow: 0 20px 30px -10px rgba(0, 43, 73, 0.5), 0 0 20px rgba(249, 87, 56, 0.15);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #60A5FA 0%, #EE6C4D 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #1A5F7A 0%, #002B49 100%);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0F172A;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1E293B;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #EE6C4D;
+        }
+    </style>
+</head>
+<body class="relative text-slate-100 antialiased selection:bg-brand-accent selection:text-white">
+
+    <!-- 3D Canvas Background Container -->
+    <div id="canvas-container" class="fixed inset-0 pointer-events-none z-0 opacity-40"></div>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-50 glass-card border-b border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo & Brand -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="relative w-12 h-12 flex items-center justify-center rounded-xl bg-gradient-to-tr from-brand-blue to-brand-accent p-0.5 shadow-lg group-hover:scale-105 transition-transform">
+                        <div class="w-full h-full bg-slate-900 rounded-[10px] flex items-center justify-center">
+                            <!-- SVG Logo stylized from card -->
+                            <svg class="w-8 h-8 text-brand-orange" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="50" cy="50" r="35" stroke="#38BDF8" stroke-width="4" stroke-dasharray="6 4" />
+                                <path d="M30 30 L50 75 L70 30" stroke="#EE6C4D" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M45 25 Q 70 25 80 50" stroke="#F95738" stroke-width="6" stroke-linecap="round" fill="none"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="font-heading font-extrabold text-xl sm:text-2xl tracking-wider text-white flex items-center gap-1">
+                            VEER <span class="text-brand-orange">CONSULTANCY</span>
+                        </span>
+                        <p class="text-[10px] sm:text-xs text-slate-400 tracking-widest uppercase font-semibold">Quality is our Speciality</p>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex items-center gap-8 font-medium text-sm">
+                    <a href="#about" class="text-slate-300 hover:text-brand-orange transition-colors">About Us</a>
+                    <a href="#services" class="text-slate-300 hover:text-brand-orange transition-colors">Services</a>
+                    <a href="#calculator" class="text-slate-300 hover:text-brand-orange transition-colors">Cost Estimator</a>
+                    <a href="#portfolio" class="text-slate-300 hover:text-brand-orange transition-colors">Projects</a>
+                    <a href="#contact" class="text-slate-300 hover:text-brand-orange transition-colors">Contact</a>
+                </nav>
+
+                <!-- Header Actions -->
+                <div class="hidden md:flex items-center gap-4">
+                    <a href="tel:+917698201565" class="flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800 text-slate-200 hover:bg-slate-700 hover:text-white transition-all text-sm border border-slate-700">
+                        <i class="fa-solid fa-phone text-brand-orange"></i>
+                        <span>+91 7698201565</span>
+                    </a>
+                    <a href="#calculator" class="px-5 py-2.5 rounded-lg bg-gradient-to-r from-brand-orange to-brand-accent hover:from-brand-accent hover:to-brand-orange text-white font-semibold text-sm shadow-lg shadow-brand-orange/20 transition-all hover:shadow-brand-orange/40">
+                        Get Estimate
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg text-slate-300 hover:text-white focus:outline-none" aria-label="Toggle Menu">
+                    <i class="fa-solid fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden glass-card border-t border-slate-800 px-4 pt-4 pb-6 space-y-3">
+            <a href="#about" class="block py-2 text-slate-200 hover:text-brand-orange transition-colors font-medium">About Us</a>
+            <a href="#services" class="block py-2 text-slate-200 hover:text-brand-orange transition-colors font-medium">Services</a>
+            <a href="#calculator" class="block py-2 text-slate-200 hover:text-brand-orange transition-colors font-medium">Cost Estimator</a>
+            <a href="#portfolio" class="block py-2 text-slate-200 hover:text-brand-orange transition-colors font-medium">Projects</a>
+            <a href="#contact" class="block py-2 text-slate-200 hover:text-brand-orange transition-colors font-medium">Contact</a>
+            <div class="pt-4 border-t border-slate-800 flex flex-col gap-3">
+                <a href="tel:+917698201565" class="w-full text-center py-2.5 rounded-lg bg-slate-800 text-slate-200 text-sm font-semibold border border-slate-700 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-phone text-brand-orange"></i> Call +91 7698201565
+                </a>
+                <a href="https://wa.me/917698201565" target="_blank" class="w-full text-center py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-semibold flex items-center justify-center gap-2">
+                    <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="relative z-10">
+        <!-- Hero Section -->
+        <section class="min-h-[calc(100vh-5rem)] flex items-center py-16 sm:py-24 relative overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <!-- Hero Content Left -->
+                    <div class="lg:col-span-7 space-y-8">
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-800/90 border border-brand-orange/30 text-brand-orange text-xs sm:text-sm font-medium shadow-sm">
+                            <span class="flex h-2 w-2 rounded-full bg-brand-orange animate-ping"></span>
+                            <span>Led by Er. Maulik Suthar (Civil Engineer)</span>
+                        </div>
+                        
+                        <h1 class="font-heading text-4xl sm:text-6xl font-extrabold leading-tight tracking-tight">
+                            Building Visions into <span class="gradient-text">Concrete Reality.</span>
+                        </h1>
+
+                        <p class="text-slate-300 text-base sm:text-lg max-w-2xl leading-relaxed">
+                            Welcome to <strong class="text-white">VEER CONSULTANCY</strong>. We deliver premier structural execution, end-to-end project management, and flawless interior solutions crafted to precision.
+                        </p>
+
+                        <!-- Action Buttons -->
+                        <div class="flex flex-wrap gap-4 pt-2">
+                            <a href="#contact" class="px-7 py-3.5 rounded-xl bg-gradient-to-r from-brand-orange to-brand-accent hover:from-brand-accent hover:to-brand-orange text-white font-bold shadow-lg shadow-brand-orange/25 hover:shadow-brand-orange/40 transition-all transform hover:-translate-y-0.5 flex items-center gap-2">
+                                <span>Consult Us Today</span>
+                                <i class="fa-solid fa-arrow-right text-sm"></i>
+                            </a>
+                            <a href="https://wa.me/917698201565?text=Hello%20Maulik%20bhai,%20I%20would%20like%20to%20discuss%20a%20construction%20project." target="_blank" class="px-7 py-3.5 rounded-xl glass-card hover:bg-slate-800/80 text-emerald-400 font-semibold border border-emerald-500/30 transition-all flex items-center gap-2">
+                                <i class="fa-brands fa-whatsapp text-lg"></i>
+                                <span>WhatsApp Direct</span>
+                            </a>
+                        </div>
+
+                        <!-- Highlights Banner -->
+                        <div class="grid grid-cols-3 gap-4 pt-6 border-t border-slate-800/80">
+                            <div>
+                                <h3 class="font-heading text-2xl sm:text-3xl font-bold text-white">100%</h3>
+                                <p class="text-xs sm:text-sm text-slate-400">Quality Assurance</p>
+                            </div>
+                            <div>
+                                <h3 class="font-heading text-2xl sm:text-3xl font-bold text-white">On-Time</h3>
+                                <p class="text-xs sm:text-sm text-slate-400">Project Delivery</p>
+                            </div>
+                            <div>
+                                <h3 class="font-heading text-2xl sm:text-3xl font-bold text-white">Turnkey</h3>
+                                <p class="text-xs sm:text-sm text-slate-400">Solutions</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Digital Card Replica Right -->
+                    <div class="lg:col-span-5 relative">
+                        <div class="relative mx-auto max-w-md">
+                            <!-- Decorative glow background -->
+                            <div class="absolute -inset-1 bg-gradient-to-r from-brand-blue to-brand-orange rounded-2xl blur-xl opacity-40 animate-pulse"></div>
+
+                            <!-- Visiting Card Interactive View -->
+                            <div class="relative glass-card rounded-2xl p-6 sm:p-8 shadow-2xl border border-slate-700/60 overflow-hidden group">
+                                <div class="absolute top-0 right-0 w-32 h-32 bg-brand-orange/10 rounded-full blur-2xl pointer-events-none"></div>
+
+                                <!-- Card Header -->
+                                <div class="flex justify-between items-start mb-6">
+                                    <div>
+                                        <div class="text-xs font-semibold text-brand-orange tracking-widest uppercase mb-1">Civil Engineer</div>
+                                        <h2 class="text-2xl font-bold text-white font-heading">Maulik Suthar</h2>
+                                        <p class="text-xs text-slate-400">Founder & Principal Engineer</p>
+                                    </div>
+                                    <div class="w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center text-brand-orange border border-slate-700">
+                                        <i class="fa-solid fa-helmet-safety text-2xl"></i>
+                                    </div>
+                                </div>
+
+                                <div class="my-6 border-t border-dashed border-slate-700"></div>
+
+                                <!-- Services Summary on Card -->
+                                <div class="space-y-3 mb-6">
+                                    <div class="flex items-center gap-3 text-sm text-slate-200">
+                                        <span class="w-7 h-7 rounded-lg bg-sky-500/10 text-sky-400 flex items-center justify-center shrink-0">
+                                            <i class="fa-solid fa-house-chimney text-xs"></i>
+                                        </span>
+                                        <span>All Types of Construction Work</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 text-sm text-slate-200">
+                                        <span class="w-7 h-7 rounded-lg bg-orange-500/10 text-orange-400 flex items-center justify-center shrink-0">
+                                            <i class="fa-solid fa-diagram-project text-xs"></i>
+                                        </span>
+                                        <span>Project Management Consultancy</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 text-sm text-slate-200">
+                                        <span class="w-7 h-7 rounded-lg bg-teal-500/10 text-teal-400 flex items-center justify-center shrink-0">
+                                            <i class="fa-solid fa-couch text-xs"></i>
+                                        </span>
+                                        <span>Interior Execution & Consultancy</span>
+                                    </div>
+                                </div>
+
+                                <!-- Card Footer Contact Info -->
+                                <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 space-y-2">
+                                    <a href="tel:+917698201565" class="flex items-center gap-3 text-xs sm:text-sm text-slate-300 hover:text-brand-orange transition-colors">
+                                        <i class="fa-solid fa-phone text-brand-orange w-4"></i>
+                                        <span>+91 7698201565</span>
+                                    </a>
+                                    <a href="mailto:sutharmaulik243@gmail.com" class="flex items-center gap-3 text-xs sm:text-sm text-slate-300 hover:text-brand-orange transition-colors truncate">
+                                        <i class="fa-solid fa-envelope text-brand-orange w-4"></i>
+                                        <span class="truncate">sutharmaulik243@gmail.com</span>
+                                    </a>
+                                </div>
+
+                                <!-- Badge Tagline -->
+                                <div class="mt-4 text-center">
+                                    <span class="inline-block text-xs font-medium text-slate-400 tracking-wider">
+                                        ✨ "Quality is our Speciality"
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-20 relative bg-slate-900/60 border-y border-slate-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <div class="inline-block px-3 py-1 rounded-md bg-brand-blue/30 text-sky-400 text-xs font-semibold uppercase tracking-wider mb-3">
+                            Engineering Excellence
+                        </div>
+                        <h2 class="font-heading text-3xl sm:text-4xl font-bold mb-6">
+                            Precision, Integrity & Premium Structural Construction
+                        </h2>
+                        <p class="text-slate-300 leading-relaxed mb-4">
+                            At <strong class="text-white">VEER CONSULTANCY</strong>, we treat every project as an architectural masterpiece. Under the leadership of Er. Maulik Suthar, we combine structural engineering principles with modern design aesthetics to create spaces that endure.
+                        </p>
+                        <p class="text-slate-300 leading-relaxed mb-6">
+                            Whether you are planning a residential home, a commercial complex, or seeking professional management to safeguard your budget and timelines, our dedicated team ensures absolute quality at every stage of execution.
+                        </p>
+
+                        <!-- Key Pillars Grid -->
+                        <div class="grid grid-cols-2 gap-4 pt-2">
+                            <div class="p-4 rounded-xl bg-slate-800/60 border border-slate-700/50">
+                                <i class="fa-solid fa-ruler-combined text-brand-orange text-xl mb-2"></i>
+                                <h4 class="font-semibold text-white text-sm">Structural Integrity</h4>
+                                <p class="text-xs text-slate-400 mt-1">Calculated engineering for long-lasting safety.</p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-slate-800/60 border border-slate-700/50">
+                                <i class="fa-solid fa-sack-dollar text-brand-orange text-xl mb-2"></i>
+                                <h4 class="font-semibold text-white text-sm">Transparent Costing</h4>
+                                <p class="text-xs text-slate-400 mt-1">Detailed estimation with zero hidden fees.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="relative">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="space-y-4">
+                                <div class="h-48 rounded-2xl bg-gradient-to-br from-slate-800 to-slate-800/40 p-6 flex flex-col justify-end border border-slate-700/50">
+                                    <i class="fa-solid fa-building-user text-3xl text-brand-orange mb-3"></i>
+                                    <h3 class="font-bold text-white">Full Cycle Execution</h3>
+                                    <p class="text-xs text-slate-400">From raw plot to final key handover.</p>
+                                </div>
+                                <div class="h-64 rounded-2xl bg-gradient-to-br from-slate-800 to-slate-800/40 p-6 flex flex-col justify-end border border-slate-700/50">
+                                    <i class="fa-solid fa-clipboard-check text-3xl text-sky-400 mb-3"></i>
+                                    <h3 class="font-bold text-white">Strict Quality Control</h3>
+                                    <p class="text-xs text-slate-400">Rigorous material testing and standards compliance.</p>
+                                </div>
+                            </div>
+                            <div class="space-y-4 pt-8">
+                                <div class="h-64 rounded-2xl bg-gradient-to-br from-slate-800 to-slate-800/40 p-6 flex flex-col justify-end border border-slate-700/50">
+                                    <i class="fa-solid fa-compass-drafting text-3xl text-emerald-400 mb-3"></i>
+                                    <h3 class="font-bold text-white">PMC Expertise</h3>
+                                    <p class="text-xs text-slate-400">Professional management saving time & costs.</p>
+                                </div>
+                                <div class="h-48 rounded-2xl bg-gradient-to-br from-slate-800 to-slate-800/40 p-6 flex flex-col justify-end border border-slate-700/50">
+                                    <i class="fa-solid fa-paint-roller text-3xl text-purple-400 mb-3"></i>
+                                    <h3 class="font-bold text-white">Custom Interiors</h3>
+                                    <p class="text-xs text-slate-400">Bespoke luxury interior planning & execution.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="py-20 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <span class="px-3 py-1 rounded-md bg-brand-orange/10 text-brand-orange text-xs font-semibold uppercase tracking-wider">
+                        Core Competencies
+                    </span>
+                    <h2 class="font-heading text-3xl sm:text-5xl font-extrabold mt-3 mb-4">
+                        Our Specialized Engineering Services
+                    </h2>
+                    <p class="text-slate-400 text-sm sm:text-base">
+                        Tailored civil engineering and construction solutions designed for high standards and peace of mind.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+                    <!-- Service Card 1 -->
+                    <div class="glass-card rounded-2xl p-8 glass-card-hover flex flex-col justify-between group">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-sky-500/10 border border-sky-500/20 text-sky-400 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-city"></i>
+                            </div>
+                            <h3 class="font-heading text-xl font-bold text-white mb-3">
+                                All Types of Construction Work
+                            </h3>
+                            <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                                End-to-end civil construction services including RCC structures, brickwork, residential homes, commercial complexes, and industrial site setup.
+                            </p>
+                            <ul class="space-y-2 text-xs text-slate-400 mb-6">
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-orange"></i> Residential & Commercial Buildings</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-orange"></i> RCC & Heavy Structural Execution</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-orange"></i> Civil Renovation & Expansion</li>
+                            </ul>
+                        </div>
+                        <button onclick="openServiceModal('construction')" class="w-full py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition-colors flex items-center justify-center gap-2">
+                            <span>Learn Details</span>
+                            <i class="fa-solid fa-circle-info text-sky-400"></i>
+                        </button>
+                    </div>
+
+                    <!-- Service Card 2 -->
+                    <div class="glass-card rounded-2xl p-8 glass-card-hover flex flex-col justify-between group">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-orange-500/10 border border-orange-500/20 text-brand-orange flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-list-check"></i>
+                            </div>
+                            <h3 class="font-heading text-xl font-bold text-white mb-3">
+                                Project Management Consultancy (PMC)
+                            </h3>
+                            <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                                Expert supervision and project management ensuring strict adherence to timelines, budget constraints, safety standards, and material specifications.
+                            </p>
+                            <ul class="space-y-2 text-xs text-slate-400 mb-6">
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-orange"></i> Site Supervision & Quality Audits</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-orange"></i> Cost Estimation & Budget Management</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-orange"></i> Contractor & Vendor Coordination</li>
+                            </ul>
+                        </div>
+                        <button onclick="openServiceModal('pmc')" class="w-full py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition-colors flex items-center justify-center gap-2">
+                            <span>Learn Details</span>
+                            <i class="fa-solid fa-circle-info text-brand-orange"></i>
+                        </button>
+                    </div>
+
+                    <!-- Service Card 3 -->
+                    <div class="glass-card rounded-2xl p-8 glass-card-hover flex flex-col justify-between group">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-teal-500/10 border border-teal-500/20 text-teal-400 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-couch"></i>
+                            </div>
+                            <h3 class="font-heading text-xl font-bold text-white mb-3">
+                                Interior Execution & Consultancy
+                            </h3>
+                            <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                                Turning empty shells into turnkey aesthetic spaces. Complete interior execution including false ceilings, custom woodwork, lighting, and layout optimization.
+                            </p>
+                            <ul class="space-y-2 text-xs text-slate-400 mb-6">
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-orange"></i> Architectural Spatial Planning</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-orange"></i> Custom Furniture & Carpentry Execution</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-orange"></i> Turnkey Residential & Office Interiors</li>
+                            </ul>
+                        </div>
+                        <button onclick="openServiceModal('interiors')" class="w-full py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition-colors flex items-center justify-center gap-2">
+                            <span>Learn Details</span>
+                            <i class="fa-solid fa-circle-info text-teal-400"></i>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Calculator Widget Section -->
+        <section id="calculator" class="py-20 relative bg-slate-900/80 border-y border-slate-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <div class="lg:col-span-5 space-y-6">
+                        <span class="px-3 py-1 rounded-md bg-emerald-500/10 text-emerald-400 text-xs font-semibold uppercase tracking-wider">
+                            Interactive Estimator
+                        </span>
+                        <h2 class="font-heading text-3xl sm:text-4xl font-extrabold text-white">
+                            Estimate Your Project Construction Cost
+                        </h2>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            Use our real-time budget calculator to get a preliminary financial breakdown for your upcoming residential, commercial, or interior execution project.
+                        </p>
+                        
+                        <div class="space-y-4 pt-2">
+                            <div class="flex items-start gap-3">
+                                <div class="w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center text-brand-orange shrink-0">
+                                    <i class="fa-solid fa-calculator text-sm"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-semibold text-white">Instant Budget Insights</h4>
+                                    <p class="text-xs text-slate-400">Calculate realistic rough estimates based on plot area & material grades.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center text-sky-400 shrink-0">
+                                    <i class="fa-solid fa-user-shield text-sm"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-semibold text-white">Consultation Verification</h4>
+                                    <p class="text-xs text-slate-400">Share your calculated figures directly with Maulik Suthar for exact quotes.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Calculator Card -->
+                    <div class="lg:col-span-7">
+                        <div class="glass-card rounded-2xl p-6 sm:p-8 border border-slate-700/70 shadow-2xl">
+                            <h3 class="font-heading text-xl font-bold text-white mb-6 flex items-center justify-between">
+                                <span>Construction Cost Calculator</span>
+                                <span class="text-xs font-normal text-slate-400 bg-slate-800 px-3 py-1 rounded-full">Updated Estimates</span>
+                            </h3>
+
+                            <form id="calc-form" class="space-y-6">
+                                <!-- Project Type -->
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">1. Select Project Type</label>
+                                    <div class="grid grid-cols-3 gap-3">
+                                        <button type="button" onclick="setProjectType('residential', this)" class="calc-type-btn p-3 rounded-xl bg-slate-800 border-2 border-brand-orange text-white text-xs font-semibold flex flex-col items-center gap-2">
+                                            <i class="fa-solid fa-house text-lg text-brand-orange"></i>
+                                            <span>Residential</span>
+                                        </button>
+                                        <button type="button" onclick="setProjectType('commercial', this)" class="calc-type-btn p-3 rounded-xl bg-slate-800/50 border-2 border-transparent text-slate-400 text-xs font-semibold flex flex-col items-center gap-2 hover:border-slate-700">
+                                            <i class="fa-solid fa-building text-lg"></i>
+                                            <span>Commercial</span>
+                                        </button>
+                                        <button type="button" onclick="setProjectType('interior', this)" class="calc-type-btn p-3 rounded-xl bg-slate-800/50 border-2 border-transparent text-slate-400 text-xs font-semibold flex flex-col items-center gap-2 hover:border-slate-700">
+                                            <i class="fa-solid fa-couch text-lg"></i>
+                                            <span>Interior Only</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Built-up Area Slider -->
+                                <div>
+                                    <div class="flex justify-between items-center mb-2">
+                                        <label class="text-xs font-semibold text-slate-300 uppercase tracking-wider">2. Built-up Area (Sq. Ft.)</label>
+                                        <span id="area-display" class="font-heading text-lg font-bold text-brand-orange">1,500 Sq. Ft.</span>
+                                    </div>
+                                    <input type="range" id="area-slider" min="300" max="10000" step="50" value="1500" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-brand-orange" oninput="updateCalculator()">
+                                    <div class="flex justify-between text-[10px] text-slate-500 mt-1">
+                                        <span>300 Sq. Ft.</span>
+                                        <span>5,000 Sq. Ft.</span>
+                                        <span>10,000+ Sq. Ft.</span>
+                                    </div>
+                                </div>
+
+                                <!-- Material Quality Grade -->
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">3. Specification / Finish Grade</label>
+                                    <select id="quality-grade" onchange="updateCalculator()" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-200 focus:outline-none focus:border-brand-orange">
+                                        <option value="1650">Standard Grade (₹ 1,650 / sq.ft - Quality Basic Structural & Finish)</option>
+                                        <option value="2100" selected>Premium Grade (₹ 2,100 / sq.ft - High End Branded Materials)</option>
+                                        <option value="2750">Luxury Grade (₹ 2,750 / sq.ft - Ultra Luxury Finishes & Automation)</option>
+                                    </select>
+                                </div>
+
+                                <!-- Result Output Box -->
+                                <div class="p-5 rounded-xl bg-slate-900 border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+                                    <div>
+                                        <span class="text-xs text-slate-400 block">Estimated Cost range</span>
+                                        <span id="total-cost" class="font-heading text-2xl sm:text-3xl font-extrabold text-emerald-400">₹ 31,50,000</span>
+                                        <span class="text-[10px] text-slate-500 block mt-0.5">*Approximate civil calculation subject to layout plans</span>
+                                    </div>
+                                    <button type="button" onclick="sendWhatsappEstimate()" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs transition-all flex items-center justify-center gap-2 whitespace-nowrap shadow-lg shadow-emerald-900/30">
+                                        <i class="fa-brands fa-whatsapp text-base"></i>
+                                        <span>Send Estimate to WhatsApp</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio / Works Section -->
+        <section id="portfolio" class="py-20 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                    <div>
+                        <span class="px-3 py-1 rounded-md bg-sky-500/10 text-sky-400 text-xs font-semibold uppercase tracking-wider">
+                            Realized Engineering Projects
+                        </span>
+                        <h2 class="font-heading text-3xl sm:text-5xl font-extrabold mt-3">
+                            Our Portfolio & Site Executions
+                        </h2>
+                        <p class="text-slate-400 text-sm mt-2 max-w-xl">
+                            Explore our landmark civil construction, project management (PMC), and bespoke facade & interior installations across Gujarat.
+                        </p>
+                    </div>
+
+                    <!-- Filter Tabs -->
+                    <div class="flex flex-wrap gap-2 mt-6 md:mt-0" id="portfolio-filters">
+                        <button onclick="filterProjects('all', this)" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-brand-orange text-white transition-all shadow-md">All Projects</button>
+                        <button onclick="filterProjects('facades', this)" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all">Facades & Kinetic Jali</button>
+                        <button onclick="filterProjects('townships', this)" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all">Gated Townships & PMC</button>
+                        <button onclick="filterProjects('villas', this)" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all">Luxury Modern Villas</button>
+                    </div>
+                </div>
+
+                <!-- Portfolio Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="portfolio-grid">
+                    
+                    <!-- Project Item 1: Kinetic Jali Villa Facade -->
+                    <div class="project-card glass-card rounded-2xl overflow-hidden glass-card-hover flex flex-col justify-between" data-category="facades">
+                        <div>
+                            <div class="relative h-64 bg-slate-900 overflow-hidden group cursor-pointer" onclick="openLightbox('project-1')">
+                                <div class="w-full h-full bg-gradient-to-t from-slate-950/90 via-slate-900/40 to-transparent absolute z-10"></div>
+                                
+                                <!-- Detailed Vector/CSS Artwork representing Image 1 & 2: Terracotta Kinetic Jali -->
+                                <div class="w-full h-full relative p-4 flex flex-col justify-between transition-transform duration-500 group-hover:scale-105">
+                                    <div class="absolute inset-0 bg-[#2D1B18]/60 flex items-center justify-center p-4">
+                                        <div class="w-full h-full border-2 border-dashed border-[#EE6C4D]/40 rounded-lg p-2 flex flex-col justify-around bg-[#1A1211]">
+                                            <!-- Grid of terracotta perforated louvers -->
+                                            <div class="grid grid-cols-6 gap-1.5 h-1/2">
+                                                <div class="bg-[#A0522D] rounded-sm transform rotate-12 flex items-center justify-center text-[8px] text-amber-200">░░</div>
+                                                <div class="bg-[#8B4513] rounded-sm flex items-center justify-center text-[8px] text-amber-200">▒▒</div>
+                                                <div class="bg-[#A0522D] rounded-sm transform -rotate-6 flex items-center justify-center text-[8px] text-amber-200">░░</div>
+                                                <div class="bg-[#8B4513] rounded-sm flex items-center justify-center text-[8px] text-amber-200">▓▓</div>
+                                                <div class="bg-[#A0522D] rounded-sm transform rotate-12 flex items-center justify-center text-[8px] text-amber-200">░░</div>
+                                                <div class="bg-[#8B4513] rounded-sm flex items-center justify-center text-[8px] text-amber-200">▒▒</div>
+                                            </div>
+                                            <div class="grid grid-cols-6 gap-1.5 h-1/2">
+                                                <div class="bg-[#8B4513] rounded-sm flex items-center justify-center text-[8px] text-amber-200">▓▓</div>
+                                                <div class="bg-[#A0522D] rounded-sm transform -rotate-12 flex items-center justify-center text-[8px] text-amber-200">░░</div>
+                                                <div class="bg-[#8B4513] rounded-sm flex items-center justify-center text-[8px] text-amber-200">▒▒</div>
+                                                <div class="bg-[#A0522D] rounded-sm flex items-center justify-center text-[8px] text-amber-200">░░</div>
+                                                <div class="bg-[#8B4513] rounded-sm transform rotate-6 flex items-center justify-center text-[8px] text-amber-200">▓▓</div>
+                                                <div class="bg-[#A0522D] rounded-sm flex items-center justify-center text-[8px] text-amber-200">▒▒</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <span class="absolute top-4 left-4 z-20 px-3 py-1 rounded-full bg-slate-900/90 text-brand-orange text-xs font-semibold border border-brand-orange/30 backdrop-blur-md">
+                                    Terracotta Kinetic Facade
+                                </span>
+                                
+                                <div class="absolute inset-0 z-20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-slate-950/60">
+                                    <span class="px-4 py-2 rounded-xl bg-brand-orange text-white text-xs font-bold flex items-center gap-2">
+                                        <i class="fa-solid fa-expand"></i> View Execution Details
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            <div class="p-6">
+                                <h3 class="font-heading text-lg font-bold text-white mb-2">Architectural Kinetic Jali Villa Elevation</h3>
+                                <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                                    Precision civil & structural installation of custom terracotta perforated screen shutters. Provides dynamic light patterns, thermal insulation, and parametric aesthetic appeal.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="px-6 pb-6 pt-2 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
+                            <span><i class="fa-solid fa-ruler-combined text-brand-orange mr-1"></i> Special Facade Work</span>
+                            <span class="text-emerald-400 font-semibold"><i class="fa-solid fa-circle-check mr-1"></i> Completed</span>
+                        </div>
+                    </div>
+
+                    <!-- Project Item 2: Solar Gated Villa Township -->
+                    <div class="project-card glass-card rounded-2xl overflow-hidden glass-card-hover flex flex-col justify-between" data-category="townships">
+                        <div>
+                            <div class="relative h-64 bg-slate-900 overflow-hidden group cursor-pointer" onclick="openLightbox('project-2')">
+                                <div class="w-full h-full bg-gradient-to-t from-slate-950/90 via-slate-900/40 to-transparent absolute z-10"></div>
+                                
+                                <!-- Detailed Vector representation of Gated Villa Township -->
+                                <div class="w-full h-full relative p-4 flex flex-col justify-between transition-transform duration-500 group-hover:scale-105">
+                                    <div class="absolute inset-0 bg-[#0E2018]/80 flex flex-col justify-between p-4">
+                                        <!-- Top aerial row of villas with solar panels -->
+                                        <div class="grid grid-cols-4 gap-2">
+                                            <div class="h-14 bg-slate-200/90 rounded-md p-1 border-t-4 border-blue-500 flex flex-col justify-between">
+                                                <div class="h-3 bg-blue-900 rounded-sm"></div>
+                                                <span class="text-[6px] text-slate-800 font-bold">Solar Villa</span>
+                                            </div>
+                                            <div class="h-14 bg-slate-200/90 rounded-md p-1 border-t-4 border-blue-500 flex flex-col justify-between">
+                                                <div class="h-3 bg-blue-900 rounded-sm"></div>
+                                                <span class="text-[6px] text-slate-800 font-bold">Solar Villa</span>
+                                            </div>
+                                            <div class="h-14 bg-slate-200/90 rounded-md p-1 border-t-4 border-blue-500 flex flex-col justify-between">
+                                                <div class="h-3 bg-blue-900 rounded-sm"></div>
+                                                <span class="text-[6px] text-slate-800 font-bold">Solar Villa</span>
+                                            </div>
+                                            <div class="h-14 bg-slate-200/90 rounded-md p-1 border-t-4 border-blue-500 flex flex-col justify-between">
+                                                <div class="h-3 bg-blue-900 rounded-sm"></div>
+                                                <span class="text-[6px] text-slate-800 font-bold">Solar Villa</span>
+                                            </div>
+                                        </div>
+                                        <!-- Internal road & green hedges -->
+                                        <div class="h-8 bg-emerald-950/90 border-y-2 border-emerald-500/50 flex items-center justify-center">
+                                            <span class="text-[9px] text-emerald-400 font-bold tracking-widest uppercase">Gated Internal Avenue</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <span class="absolute top-4 left-4 z-20 px-3 py-1 rounded-full bg-slate-900/90 text-sky-400 text-xs font-semibold border border-sky-400/30 backdrop-blur-md">
+                                    Township PMC & Execution
+                                </span>
+                                
+                                <div class="absolute inset-0 z-20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-slate-950/60">
+                                    <span class="px-4 py-2 rounded-xl bg-sky-500 text-white text-xs font-bold flex items-center gap-2">
+                                        <i class="fa-solid fa-expand"></i> View Township Overview
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            <div class="p-6">
+                                <h3 class="font-heading text-lg font-bold text-white mb-2">Modern Solar Gated Villa Township</h3>
+                                <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                                    Full site development & Project Management Consultancy for multi-villa eco residential scheme featuring roof solar installations, concrete internal roads, and perimeter landscaping.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="px-6 pb-6 pt-2 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
+                            <span><i class="fa-solid fa-layer-group text-sky-400 mr-1"></i> Multi-Unit Residential</span>
+                            <span class="text-emerald-400 font-semibold"><i class="fa-solid fa-circle-check mr-1"></i> PMC Delivered</span>
+                        </div>
+                    </div>
+
+                    <!-- Project Item 3: Luxury Multi-Tier Modern Residence -->
+                    <div class="project-card glass-card rounded-2xl overflow-hidden glass-card-hover flex flex-col justify-between" data-category="villas">
+                        <div>
+                            <div class="relative h-64 bg-slate-900 overflow-hidden group cursor-pointer" onclick="openLightbox('project-3')">
+                                <div class="w-full h-full bg-gradient-to-t from-slate-950/90 via-slate-900/40 to-transparent absolute z-10"></div>
+                                
+                                <!-- Detailed Vector representation of Multi-tier Modern Residence -->
+                                <div class="w-full h-full relative p-4 flex flex-col justify-between transition-transform duration-500 group-hover:scale-105">
+                                    <div class="absolute inset-0 bg-slate-950 flex flex-col justify-end p-4 border-b-4 border-brand-orange">
+                                        <div class="w-full h-full bg-gradient-to-b from-slate-800 to-slate-900 rounded-lg p-3 border border-slate-700 flex flex-col justify-between">
+                                            <div class="h-8 bg-amber-500/20 border-b border-amber-500/40 rounded flex items-center justify-center text-[9px] text-amber-300 font-semibold">Terrace Roof Canopy</div>
+                                            <div class="h-12 bg-slate-800 border border-slate-600 rounded p-1 flex justify-between items-center">
+                                                <div class="w-1/2 h-full bg-[#A0522D]/60 rounded text-[7px] text-amber-100 flex items-center justify-center">Custom Jali</div>
+                                                <div class="w-1/3 h-full bg-sky-500/20 rounded text-[7px] text-sky-300 flex items-center justify-center">Glass</div>
+                                            </div>
+                                            <div class="h-10 bg-slate-900 rounded border border-amber-500/60 p-2 flex items-center justify-between">
+                                                <div class="w-4 h-4 rounded-full bg-amber-400/80 animate-pulse"></div>
+                                                <span class="text-[8px] text-amber-300 font-bold">Grand Warm Lit Entrance</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <span class="absolute top-4 left-4 z-20 px-3 py-1 rounded-full bg-slate-900/90 text-amber-400 text-xs font-semibold border border-amber-400/30 backdrop-blur-md">
+                                    3-Tier Luxury Villa
+                                </span>
+                                
+                                <div class="absolute inset-0 z-20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-slate-950/60">
+                                    <span class="px-4 py-2 rounded-xl bg-amber-500 text-slate-950 text-xs font-bold flex items-center gap-2">
+                                        <i class="fa-solid fa-expand"></i> View Villa Architecture
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            <div class="p-6">
+                                <h3 class="font-heading text-lg font-bold text-white mb-2">Multi-Story Premium Modern Bungalow</h3>
+                                <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                                    Turnkey construction featuring cantilevered upper floors, textured fluted concrete pillars, customized entry gate illumination, and warm accent facade lighting.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="px-6 pb-6 pt-2 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
+                            <span><i class="fa-solid fa-house-crack text-amber-400 mr-1"></i> Custom Structural Build</span>
+                            <span class="text-emerald-400 font-semibold"><i class="fa-solid fa-circle-check mr-1"></i> Key Handed Over</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Project Modal / Fullscreen Lightbox -->
+        <div id="project-lightbox" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-md">
+            <div class="glass-card max-w-3xl w-full rounded-2xl p-6 sm:p-8 border border-slate-700 shadow-2xl relative overflow-y-auto max-h-[90vh]">
+                <button onclick="closeLightbox()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-2 text-xl z-30">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+
+                <div id="lightbox-body">
+                    <!-- Dynamic project detail content rendered via JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Accordion Section -->
+        <section class="py-16 relative bg-slate-900/50 border-t border-slate-800">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="font-heading text-3xl font-bold text-white">Frequently Asked Questions</h2>
+                    <p class="text-slate-400 text-sm mt-2">Answers to common civil engineering and PMC inquiries.</p>
+                </div>
+
+                <div class="space-y-4">
+                    <!-- FAQ Item 1 -->
+                    <div class="glass-card rounded-xl overflow-hidden border border-slate-800">
+                        <button onclick="toggleFaq(this)" class="w-full p-5 text-left flex justify-between items-center text-white font-semibold text-sm sm:text-base">
+                            <span>What does Project Management Consultancy (PMC) cover?</span>
+                            <i class="fa-solid fa-chevron-down text-brand-orange transition-transform"></i>
+                        </button>
+                        <div class="faq-content hidden p-5 pt-0 text-xs sm:text-sm text-slate-400 border-t border-slate-800/50">
+                            Our PMC service ensures complete oversight of your project. We manage site contractors, verify material standard quality, perform cost control, audit bills, and ensure strict safety and schedule compliance so your project is completed on time without budget overruns.
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 2 -->
+                    <div class="glass-card rounded-xl overflow-hidden border border-slate-800">
+                        <button onclick="toggleFaq(this)" class="w-full p-5 text-left flex justify-between items-center text-white font-semibold text-sm sm:text-base">
+                            <span>Do you undertake both residential and commercial projects?</span>
+                            <i class="fa-solid fa-chevron-down text-brand-orange transition-transform"></i>
+                        </button>
+                        <div class="faq-content hidden p-5 pt-0 text-xs sm:text-sm text-slate-400 border-t border-slate-800/50">
+                            Yes, VEER CONSULTANCY undertakes all types of civil construction work including luxury bungalows, row houses, apartments, commercial offices, industrial sheds, and complete interior fit-outs.
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 3 -->
+                    <div class="glass-card rounded-xl overflow-hidden border border-slate-800">
+                        <button onclick="toggleFaq(this)" class="w-full p-5 text-left flex justify-between items-center text-white font-semibold text-sm sm:text-base">
+                            <span>How is the estimation calculation verified before starting?</span>
+                            <i class="fa-solid fa-chevron-down text-brand-orange transition-transform"></i>
+                        </button>
+                        <div class="faq-content hidden p-5 pt-0 text-xs sm:text-sm text-slate-400 border-t border-slate-800/50">
+                            The online calculator provides a preliminary standard estimate. Er. Maulik Suthar will conduct a physical site survey, review architectural drawings, and provide a itemized BOQ (Bill of Quantities) before contract signing.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact & Lead Form Section -->
+        <section id="contact" class="py-20 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                    
+                    <!-- Contact Details Left -->
+                    <div class="lg:col-span-5 space-y-8">
+                        <div>
+                            <span class="px-3 py-1 rounded-md bg-brand-orange/10 text-brand-orange text-xs font-semibold uppercase tracking-wider">
+                                Direct Connect
+                            </span>
+                            <h2 class="font-heading text-3xl sm:text-5xl font-extrabold text-white mt-3 mb-4">
+                                Let's Discuss Your Project
+                            </h2>
+                            <p class="text-slate-400 text-sm leading-relaxed">
+                                Ready to start your construction journey or need professional engineering advice? Contact Er. Maulik Suthar directly.
+                            </p>
+                        </div>
+
+                        <!-- Direct Cards -->
+                        <div class="space-y-4">
+                            <!-- Phone -->
+                            <a href="tel:+917698201565" class="glass-card p-5 rounded-2xl flex items-center gap-4 glass-card-hover block">
+                                <div class="w-12 h-12 rounded-xl bg-brand-orange/10 text-brand-orange flex items-center justify-center text-xl shrink-0">
+                                    <i class="fa-solid fa-phone"></i>
+                                </div>
+                                <div>
+                                    <span class="text-xs text-slate-400 block font-medium">Direct Phone Call</span>
+                                    <span class="text-base font-bold text-white">+91 7698201565</span>
+                                </div>
+                            </a>
+
+                            <!-- Email -->
+                            <a href="mailto:sutharmaulik243@gmail.com" class="glass-card p-5 rounded-2xl flex items-center gap-4 glass-card-hover block">
+                                <div class="w-12 h-12 rounded-xl bg-sky-500/10 text-sky-400 flex items-center justify-center text-xl shrink-0">
+                                    <i class="fa-solid fa-envelope"></i>
+                                </div>
+                                <div class="overflow-hidden">
+                                    <span class="text-xs text-slate-400 block font-medium">Email Inquiry</span>
+                                    <span class="text-base font-bold text-white truncate block">sutharmaulik243@gmail.com</span>
+                                </div>
+                            </a>
+
+                            <!-- WhatsApp -->
+                            <a href="https://wa.me/917698201565" target="_blank" class="glass-card p-5 rounded-2xl flex items-center gap-4 glass-card-hover block border-emerald-500/30">
+                                <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-xl shrink-0">
+                                    <i class="fa-brands fa-whatsapp"></i>
+                                </div>
+                                <div>
+                                    <span class="text-xs text-slate-400 block font-medium">Instant WhatsApp Chat</span>
+                                    <span class="text-base font-bold text-emerald-400">Click to Chat (+91 7698201565)</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Lead Inquiry Form Right -->
+                    <div class="lg:col-span-7">
+                        <div class="glass-card rounded-3xl p-8 border border-slate-700/60 shadow-2xl">
+                            <h3 class="font-heading text-2xl font-bold text-white mb-2">Request Consultation</h3>
+                            <p class="text-xs text-slate-400 mb-6">Fill in your details below and Er. Maulik Suthar will respond promptly.</p>
+
+                            <form id="inquiry-form" onsubmit="handleFormSubmit(event)" class="space-y-4">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Your Name *</label>
+                                        <input type="text" required placeholder="e.g. Rajesh Shah" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-orange">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Phone Number *</label>
+                                        <input type="tel" required placeholder="+91 XXXXX XXXXX" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-orange">
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Service Required</label>
+                                    <select class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-200 focus:outline-none focus:border-brand-orange">
+                                        <option value="Construction Work">All Types of Construction Work</option>
+                                        <option value="Project Management Consultancy">Project Management Consultancy (PMC)</option>
+                                        <option value="Interior Execution">Interior Execution and Consultancy</option>
+                                        <option value="General Consultation">General Engineering Consultation</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Project Details / Location</label>
+                                    <textarea rows="4" placeholder="Briefly describe plot size, location, or requirements..." class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-orange"></textarea>
+                                </div>
+
+                                <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-brand-orange to-brand-accent hover:from-brand-accent hover:to-brand-orange text-white font-bold text-sm shadow-xl shadow-brand-orange/25 transition-all flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-paper-plane"></i>
+                                    <span>Submit Consultation Request</span>
+                                </button>
+                            </form>
+
+                            <!-- Success Modal Alert inside Form -->
+                            <div id="form-success" class="hidden mt-4 p-4 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs sm:text-sm text-center">
+                                <i class="fa-solid fa-circle-check text-base mr-1"></i>
+                                <span>Thank you! Your message has been received. We will call you back shortly.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-10 bg-slate-950 border-t border-slate-800 text-xs text-slate-500">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <span class="font-heading font-bold text-white text-base">VEER CONSULTANCY</span>
+                    <span class="text-slate-600">|</span>
+                    <span>Quality is our Speciality</span>
+                </div>
+                <div>
+                    <p>© <span id="current-year"></span> VEER CONSULTANCY. Led by Er. Maulik Suthar (Civil Engineer).</p>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <!-- Interactive Service Modal Dynamic Popups -->
+    <div id="service-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center px-4 bg-slate-950/80 backdrop-blur-sm">
+        <div class="glass-card max-w-lg w-full rounded-2xl p-6 sm:p-8 border border-slate-700 shadow-2xl relative">
+            <button onclick="closeServiceModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-2">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            <div id="modal-content">
+                <!-- Injected via JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Interactions & Three.js 3D Grid -->
+    <script>
+        // ... existing JavaScript code ...
+
+        // Interactive Project Lightbox Viewer Data
+        const projectDetails = {
+            'project-1': {
+                title: 'Architectural Kinetic Terracotta Jali Villa',
+                category: 'Facades & Custom Screen Work',
+                location: 'Gujarat, India',
+                role: 'Civil Construction & Kinetic Jali Installation',
+                description: `
+                    <p class="mb-3">This iconic modern residence features a customized kinetic facade system composed of perforated terracotta shutters. Each louver can rotate to regulate sunlight, privacy, and internal airflow.</p>
+                    <div class="grid grid-cols-2 gap-3 my-4">
+                        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
+                            <span class="text-[10px] text-slate-400 block uppercase">Key Feature</span>
+                            <span class="text-xs font-semibold text-brand-orange">Perforated Kinetic Louvers</span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
+                            <span class="text-[10px] text-slate-400 block uppercase">Material</span>
+                            <span class="text-xs font-semibold text-white">Terracotta & Steel Subframe</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-400">VEER CONSULTANCY handled the precise alignment, structural mounting, and civil finishing to integrate this complex facade seamlessly into the exposed concrete exterior.</p>
+                `
+            },
+            'project-2': {
+                title: 'Modern Solar-Powered Gated Villa Township',
+                category: 'Townships & Project Management Consultancy (PMC)',
+                location: 'Gujarat, India',
+                role: 'PMC, Quality Supervision & Turnkey Execution',
+                description: `
+                    <p class="mb-3">An expansive eco-friendly residential township featuring multiple independent modern villas equipped with rooftop solar energy installations and landscaped green avenues.</p>
+                    <div class="grid grid-cols-2 gap-3 my-4">
+                        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
+                            <span class="text-[10px] text-slate-400 block uppercase">Scope</span>
+                            <span class="text-xs font-semibold text-sky-400">Full Township PMC</span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
+                            <span class="text-[10px] text-slate-400 block uppercase">Green Tech</span>
+                            <span class="text-xs font-semibold text-white">Rooftop Solar & Landscaping</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-400">Under Er. Maulik Suthar's leadership, strict civil quality audits were enforced across every villa block to guarantee long-term structural integrity and timely delivery.</p>
+                `
+            },
+            'project-3': {
+                title: 'Multi-Story Premium Modern Villa',
+                category: 'Luxury Modern Bungalow',
+                location: 'Gujarat, India',
+                role: 'Full Turnkey Civil Build & Interior Integration',
+                description: `
+                    <p class="mb-3">A magnificent multi-tiered bungalow featuring dramatic warm entrance lighting, fluted concrete columns, custom metal screens, and spacious glass balconies.</p>
+                    <div class="grid grid-cols-2 gap-3 my-4">
+                        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
+                            <span class="text-[10px] text-slate-400 block uppercase">Highlights</span>
+                            <span class="text-xs font-semibold text-amber-400">Grand Entry Light Gateway</span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
+                            <span class="text-[10px] text-slate-400 block uppercase">Finishes</span>
+                            <span class="text-xs font-semibold text-white">Fluted Concrete & Jali Panels</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-400">Constructed with high-strength RCC materials and meticulous waterproofing, representing the signature craftsmanship of VEER CONSULTANCY.</p>
+                `
+            }
+        };
+
+        function openLightbox(key) {
+            const data = projectDetails[key];
+            const body = document.getElementById('lightbox-body');
+            body.innerHTML = `
+                <div class="space-y-4">
+                    <div class="inline-block px-3 py-1 rounded-full bg-brand-orange/10 text-brand-orange text-xs font-semibold">
+                        ${data.category}
+                    </div>
+                    <h3 class="font-heading text-2xl font-bold text-white">${data.title}</h3>
+                    <div class="flex items-center gap-4 text-xs text-slate-400 pb-2 border-b border-slate-800">
+                        <span><i class="fa-solid fa-location-dot text-brand-orange mr-1"></i> ${data.location}</span>
+                        <span><i class="fa-solid fa-user-gear text-sky-400 mr-1"></i> ${data.role}</span>
+                    </div>
+                    <div class="text-sm text-slate-300 leading-relaxed">
+                        ${data.description}
+                    </div>
+                    <div class="pt-4 flex flex-col sm:flex-row gap-3">
+                        <a href="https://wa.me/917698201565?text=Hello%20Maulik%20bhai,%20I%20am%20interested%20in%20building%20a%20project%20similar%20to%20${encodeURIComponent(data.title)}" target="_blank" class="flex-1 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs flex items-center justify-center gap-2">
+                            <i class="fa-brands fa-whatsapp text-base"></i>
+                            <span>Discuss Similar Build on WhatsApp</span>
+                        </a>
+                        <button onclick="closeLightbox()" class="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs">
+                            Close
+                        </button>
+                    </div>
+                </div>
+            `;
+            document.getElementById('project-lightbox').classList.remove('hidden');
+        }
+
+        function closeLightbox() {
+            document.getElementById('project-lightbox').classList.add('hidden');
+        }
+
+        // ... existing JavaScript code ...
+    </script>
+</body>
+</html>
